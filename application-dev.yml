@@ -1,0 +1,190 @@
+host:
+
+  servicelocal:
+    registry:
+      address: 127.0.0.1
+      port: 8761
+
+  #elevenia service registry
+  service:
+    registry:
+      address: 172.18.186.48
+      port: 8761
+  
+  #desklab properties
+  eoffice:
+    database:
+      address: 172.18.186.31
+      port: 5433
+      username: eofdba
+      password: '{cipher}422a9f0d1c084ba51f68967e38308e7a563a9f1567049671916964499be55350'
+    zipkin:
+      address: 172.18.186.48
+      port: 9411
+    mancenter:
+      address: 172.18.186.48
+      port: 8180
+    logstash:
+      address: 172.18.186.48
+      port: 5000
+    elasticnode:
+      address: 172.18.186.48
+      port: 9200
+      
+  #indostation properties
+  indostation:
+    database:
+      address: 172.18.186.31
+      port: 5432
+      username: idstdba
+      password: '{cipher}422a9f0d1c084ba51f68967e38308e7a563a9f1567049671916964499be55350'
+    zipkin:
+      address: 172.18.186.48
+      port: 9411
+    mancenter:
+      address: 172.18.186.48
+      port: 8180
+    logstash:
+      address: 172.18.186.48
+      port: 5000
+    elasticnode:
+      address: 172.18.186.48
+      port: 9200
+  
+  #legacymso properties
+  legacymso:
+    database:
+      address: 172.18.186.26
+      port: 
+    zipkin:
+      address: 172.18.186.48
+      port: 9411
+    mancenter:
+      address: 172.18.186.48
+      port: 8180
+    logstash:
+      address: 172.18.186.48
+      port: 5000
+    elasticnode:
+      address: 172.18.186.48
+      port: 9200
+      
+  #lpi properties
+  lpi:
+    database:
+      address: 172.18.186.31
+      port: 5432
+      username: lpidba
+      password: '{cipher}d9bbba31b3a22679664d2e191e08043ecce0153f57b2026f6b7eeecf81a36dbf'
+    zipkin:
+      address: 172.18.186.48
+      port: 9411
+    mancenter:
+      address: 172.18.186.48
+      port: 8180
+    logstash:
+      address: 172.18.186.48
+      port: 5000
+    elasticnode:
+      address: 172.18.186.48
+      port: 9200
+      
+  #elmart properties
+  elmart:
+    database:
+      address: 172.18.186.31
+      port: 5432
+      username: elmart
+      password: 2iAmOB1gRY1AFWnpzatHXQ==
+    zipkin:
+      address: 172.18.186.48
+      port: 9411
+    mancenter:
+      address: 172.18.186.48
+      port: 8180
+    logstash:
+      address: 172.18.186.48
+      port: 5000
+    elasticnode:
+      address: 172.18.186.48
+      port: 9200
+      
+
+  
+  #mpis properties
+  mpis:
+    database:
+      address: 172.18.186.31
+      port: 5433
+      username: eofdba
+      password: '{cipher}422a9f0d1c084ba51f68967e38308e7a563a9f1567049671916964499be55350'
+    zipkin:
+      address: 172.18.186.48
+      port: 9411
+    mancenter:
+      address: 172.18.186.48
+      port: 8180
+    logstash:
+      address: 172.18.186.48
+      port: 5000
+    elasticnode:
+      address: 172.18.186.48
+      port: 9200
+
+#Global address for elevenia UAA (elvuaa)
+authority:
+  service:
+    feign:
+      address: elvuaa
+
+
+#Service declaration for each application
+#desklab
+eoffice:
+  apps: elvuaa,eofemp,eofevt,eofntf,eofmnu
+  gateway:
+    url: http://172.18.186.48:8082
+  encrypt:
+    key: eoffice
+  service:
+    feign:
+      user-address: eofemp
+      event-address: eofevt
+      notif-address: eofntf
+      menu-address: eofmnu
+
+#indostation
+indostation:
+  apps: elvuaa,idstorder,idstproduct,idstwarehouse
+  service:
+    feign:
+      product-address: idstproduct
+      
+#mpis
+mpis:
+  apps: elvuaa
+  gateway:
+    url: http://172.18.186.48:8082
+  encrypt:
+    key: mpis
+  service:
+    feign:
+      user-address: mpispay
+
+#lpi - tebu
+lpi:
+  apps: elvuaa
+  service:
+    feign:
+      docs-address: lpidocs
+      
+env:
+  service:
+    registry:
+      address: 172.18.186.48
+      port: 8761
+     
+this:
+  is:
+    only:
+      available: development_mode
